@@ -10,7 +10,6 @@ const isRoleValidate = async(role = "") => {
 
 const existEmail = async(email = "") => {
 	const emailExist = await User.findOne({ email });
-	console.log(emailExist)
 	if(emailExist) {
 		throw new Error(`Email ${email} already exist`)
 	}

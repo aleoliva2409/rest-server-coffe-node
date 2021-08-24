@@ -3,11 +3,9 @@ const { check } = require("express-validator");
 const {
 	validateInputs,
 	validateJWT,
-	isAdminRole,
+	// isAdminRole,
 	hasRole,
 } = require("../middlewares");
-const papa = require("../middlewares")
-console.log(papa)
 const {
 	isRoleValidate,
 	existEmail,
