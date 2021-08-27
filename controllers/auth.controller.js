@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const { User } = require("../models");
 const bcryptjs = require("bcryptjs");
 const { generateJWT } = require("../helpers/generateJWT");
 const { googleVerify } = require("../helpers/googleVerify");
@@ -44,8 +44,7 @@ const login = async (req, res) => {
 	}
 };
 
-const googleSignIn = async(req, res) => {
-
+const googleSignIn = async (req, res) => {
 	try {
 		const { id_token } = req.body;
 		const { name, img, email } = await googleVerify(id_token);

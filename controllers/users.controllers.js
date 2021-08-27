@@ -1,11 +1,10 @@
 //* podemos NO usar esta importacion
 const { response } = require("express");
 
-const User = require("../models/User");
+const { User } = require("../models/");
 const bcrypt = require("bcryptjs");
 
-
-const usersGet = async(req, res = response) => {
+const usersGet = async (req, res = response) => {
 	// const params = req.query
 	// const { name = "no name", apikey, age } = req.query;
 
@@ -13,15 +12,13 @@ const usersGet = async(req, res = response) => {
 
 	const [total, users] = await Promise.all([
 		User.countDocuments({ status: true }),
-		User.find({ status: true })
-			.skip(Number(skip))
-			.limit(Number(limit))
-	])
+		User.find({ status: true }).skip(Number(skip)).limit(Number(limit)),
+	]);
 
 	res.json({
 		msg: "get API - Controller",
 		total,
-		users
+		users,
 	});
 };
 
@@ -50,16 +47,16 @@ const usersPost = async (req, res) => {
 	});
 };
 
-const usersPut = async(req, res) => {
+const usersPut = async (req, res) => {
 	const { id } = req.params;
 	const { password, google, email, _id, ...rest } = req.body;
 
-	if(password) {
+	if (password) {
 		const salt = bcrypt.genSaltSync(); // por defecto es 10
 		rest.password = bcrypt.hashSync(password, salt);
 	}
 
-	const userDB = await User.findByIdAndUpdate(id, rest)
+	const userDB = await User.findByIdAndUpdate(id, rest);
 
 	res.json({
 		msg: "put API - Controller",
@@ -67,7 +64,7 @@ const usersPut = async(req, res) => {
 	});
 };
 
-const usersDelete = async(req, res) => {
+const usersDelete = async (req, res) => {
 	const { id } = req.params;
 
 	// ? user auth
@@ -77,7 +74,7 @@ const usersDelete = async(req, res) => {
 
 	// borrar fisicamente
 	// const user = await User.findByIdAndDelete(id)
-	const userDelete = await User.findByIdAndUpdate(id, { status: false })
+	const userDelete = await User.findByIdAndUpdate(id, { status: false });
 
 	// console.log(uid)
 	res.json({

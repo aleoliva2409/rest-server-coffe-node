@@ -33,6 +33,7 @@ const UserSchema = Schema({
 	},
 });
 
+// ? esta funcion se ejecuta cuando se envia como response al front
 UserSchema.methods.toJSON = function() {
 	const { __v, password, _id, ...user } = this.toObject();
 	user.uid = _id
