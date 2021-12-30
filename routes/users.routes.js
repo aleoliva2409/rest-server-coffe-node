@@ -13,9 +13,9 @@ const {
 } = require("../helpers/db-validators");
 const {
 	usersGet,
-	usersPost,
-	usersPut,
-	usersDelete,
+	userPost,
+	userPut,
+	userDelete,
 } = require("../controllers/users.controllers");
 
 const router = Router();
@@ -33,7 +33,7 @@ router.post(
 		check("role").custom(isRoleValidate), // se le otorga como argumento lo que devuelve check role. isRoleValidate === (role) => isRoleValidate(role)
 		validateInputs,
 	],
-	usersPost
+	userPost
 );
 
 router.put(
@@ -45,7 +45,7 @@ router.put(
 		check("role").custom(isRoleValidate),
 		validateInputs,
 	],
-	usersPut
+	userPut
 );
 
 router.delete(
@@ -58,7 +58,7 @@ router.delete(
 		check("id").custom(existUserById),
 		validateInputs,
 	],
-	usersDelete
+	userDelete
 );
 
 module.exports = router;

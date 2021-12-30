@@ -30,7 +30,7 @@ router.post(
 	"/",
 	[
 		validateJWT,
-		check("name", "Name is required").not().isEmpty(), // TODO: completar
+		check("name", "Name is required").not().isEmpty(),
 		check("category", "id is not mongo ID").isMongoId(),
 		check("category").custom(existCategoryById),
 		validateInputs,

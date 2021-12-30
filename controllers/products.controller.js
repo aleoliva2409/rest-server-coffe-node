@@ -81,7 +81,7 @@ const updateProduct = async (req, res) => {
 
 		body.user = req.user._id
 
-		const productDB = await Product.findByIdAndUpdate(id, body, { new: true });
+		const productDB = await Product.findByIdAndUpdate(id, body, { new: true }); // ? el 3er Arg manda el el documento actualizado como respuesta
 
 
 		res.status(200).json(productDB);

@@ -24,47 +24,59 @@ const usersGet = async (req, res = response) => {
 
 //* aca no usamos el response importado
 
-const usersPost = async (req, res) => {
-	//! NO RECOMENDADO
-	// const body = req.body
-	//* RECOMENDADO
-	//* con destructuring
-	// const {name,age} = req.body
+const userPost = async (req, res) => {
+	try {
+		//! NO RECOMENDADO
+		// const body = req.body
+		//* RECOMENDADO
+		//* con destructuring
+		// const {name,age} = req.body
 
-	const { name, email, password, role } = req.body;
-	const user = new User({ name, email, password, role });
+		const { name, email, password, role } = req.body;
+		const user = new User({ name, email, password, role });
 
-	//? Encriptar la constraseña
-	const salt = bcrypt.genSaltSync(); // por defecto es 10
-	user.password = bcrypt.hashSync(password, salt);
-
-	//? Guardar en DB
-	await user.save();
-
-	res.json({
-		msg: "post API - Controller",
-		user,
-	});
-};
-
-const usersPut = async (req, res) => {
-	const { id } = req.params;
-	const { password, google, email, _id, ...rest } = req.body;
-
-	if (password) {
+		//? Encriptar la constraseña
 		const salt = bcrypt.genSaltSync(); // por defecto es 10
-		rest.password = bcrypt.hashSync(password, salt);
+		user.password = bcrypt.hashSync(password, salt);
+
+		//? Guardar en DB
+		await user.save();
+
+		res.json({
+			msg: "post API - Controller",
+			user,
+		});
+	} catch (error) {
+		console.log(error)
 	}
-
-	const userDB = await User.findByIdAndUpdate(id, rest);
-
-	res.json({
-		msg: "put API - Controller",
-		userDB,
-	});
 };
 
-const usersDelete = async (req, res) => {
+const userPut = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { password, google, email, _id, ...rest } = req.body;
+
+		if (password) {
+			const salt = bcrypt.genSaltSync(); // por defecto es 10
+			rest.password = bcrypt.hashSync(password, salt);
+		}
+
+		const userDB = await User.findByIdAndUpdate(id, rest);
+
+		if (!userDB) {
+			return res.status(404).json({ msg: "User don't exist " });
+		}
+
+		res.json({
+			msg: "put API - Controller",
+			userDB,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const userDelete = async (req, res) => {
 	const { id } = req.params;
 
 	// ? user auth
@@ -74,6 +86,7 @@ const usersDelete = async (req, res) => {
 
 	// borrar fisicamente
 	// const user = await User.findByIdAndDelete(id)
+	// borrar mediante cambio de estado
 	const userDelete = await User.findByIdAndUpdate(id, { status: false });
 
 	// console.log(uid)
@@ -86,7 +99,7 @@ const usersDelete = async (req, res) => {
 
 module.exports = {
 	usersGet,
-	usersPost,
-	usersPut,
-	usersDelete,
+	userPost,
+	userPut,
+	userDelete,
 };

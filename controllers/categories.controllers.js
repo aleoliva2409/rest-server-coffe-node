@@ -106,7 +106,7 @@ const deleteCategory = async (req, res) => {
 
 		const categoryDB = await Category.findByIdAndUpdate(id, { status: false });
 
-		res.status(200).json(categoryDB)
+		res.status(200).json(categoryDB);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
