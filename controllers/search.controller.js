@@ -61,8 +61,6 @@ const search = (req, res) => {
 				})
 				break;
 		}
-
-		res.send("vamos los pibes")
 	} catch (error) {
 		console.log(error)
 	}
