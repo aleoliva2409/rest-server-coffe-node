@@ -1,7 +1,6 @@
 const { User } = require("../models");
 const bcryptjs = require("bcryptjs");
-const { generateJWT } = require("../helpers/generateJWT");
-const { googleVerify } = require("../helpers/googleVerify");
+const { generateJWT, googleVerify } = require("../helpers");
 
 const login = async (req, res) => {
 	const { email, password } = req.body;

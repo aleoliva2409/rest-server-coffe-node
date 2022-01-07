@@ -4,7 +4,7 @@ const { validateInputs, validateJWT, isAdminRole } = require("../middlewares");
 const {
 	existProductById,
 	existCategoryById,
-} = require("../helpers/db-validators");
+} = require("../helpers");
 const {
 	getProducts,
 	getProduct,

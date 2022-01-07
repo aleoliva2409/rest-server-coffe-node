@@ -7,7 +7,7 @@ const {
 } = require("../middlewares");
 const {
 	existCategoryById,
-} = require("../helpers/db-validators");
+} = require("../helpers");
 const {
 	getCategories,
 	getCategory,

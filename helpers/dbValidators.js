@@ -35,10 +35,19 @@ const existProductById = async (id) => {
 	}
 };
 
+const colectionsAllowed = (colection = '', colectionsAllowed = []) => {
+	const existColection = colectionsAllowed.includes(colection)
+	if(!existColection) throw new Error(`colection ${colection} is not allowed`)
+
+	// ? aca se retorna TRUE porque supuestamente se llama de una forma diferente a la funcion y ademas recibe como argumentos otros datos
+	return true
+}
+
 module.exports = {
 	isRoleValidate,
 	existEmail,
 	existUserById,
 	existCategoryById,
-	existProductById
+	existProductById,
+	colectionsAllowed
 };
